@@ -44,28 +44,14 @@ import org.apache.jmeter.visualizers.backend.BackendListener;
 import org.apache.jmeter.visualizers.backend.BackendListenerGui;
 
 public class JMeterMethods {
-	
-	public ArrayList<Header> header() {
-		// Headers are used on the HeadManagers
-		ArrayList<Header> headers= new ArrayList<Header>() {
-			private static final long serialVersionUID = 5524951452709084141L;
-			{
-	            add(new Header("Content-Type", "application/json"));
-	            add(new Header("Authorization", ""));
-	        }
-		}; 
-        return headers;
-	}
 
-	public HeaderManager reqHeaders(String name, ArrayList<Header> headers) {
+	public HeaderManager reqHeaders(String name) {
 		// Header Manager
         HeaderManager headerManager = new HeaderManager();
         headerManager.setName(name);
         headerManager.setProperty(TestElement.TEST_CLASS, HeaderManager.class.getName());
         headerManager.setProperty(TestElement.GUI_CLASS, HeaderPanel.class.getName()); 
-        for(int i=0; i<headers.size(); i++) {
-        	headerManager.add(headers.get(i));
-        }
+        headerManager.add(new Header("Content-Type", "application/json"));
         return headerManager;
 	}
 	
@@ -137,16 +123,6 @@ public class JMeterMethods {
         return userParameters;
 	}
 	
-	public SyncTimer syncTimer(String name, int threadNumber, String timeOut){
-        SyncTimer syncTimer= new SyncTimer();
-        syncTimer.setName(name);
-        syncTimer.setProperty("groupSize", threadNumber);
-        syncTimer.setProperty("timeoutInMs", timeOut);
-        syncTimer.setProperty(TestElement.TEST_CLASS, SyncTimer.class.getName());
-        syncTimer.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
-        return syncTimer;
-	}
-	
 	public CSVDataSet csvDataFile(String name, String path, String varNames, Boolean ignoreFirstLine, String delimiter) {
 		// CSV Data Set Config
         CSVDataSet csvDataSet = new CSVDataSet();
@@ -171,8 +147,20 @@ public class JMeterMethods {
         return timer;
 	}
 	
+	public SyncTimer syncTimer(String name, int threadNumber, String timeOut){
+		// Sync Timer
+        SyncTimer syncTimer= new SyncTimer();
+        syncTimer.setName(name);
+        syncTimer.setProperty("groupSize", threadNumber);
+        syncTimer.setProperty("timeoutInMs", timeOut);
+        syncTimer.setProperty(TestElement.TEST_CLASS, SyncTimer.class.getName());
+        syncTimer.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
+        return syncTimer;
+	}
+	
 	public LoopController loopController(String loops) {
 		// Loop Controller
+		// -1 loops will be infinite
         LoopController loopController = new LoopController();
         loopController.setLoops(loops);
         loopController.setFirst(true);
@@ -197,6 +185,7 @@ public class JMeterMethods {
 	        httpsampler.addNonEncodedArgument("body", body, "");
 	        httpsampler.setPostBodyRaw(true);
         }
+        // If you need arguments for the request
         if(args!=null) {
         	for(int i=0; i<args.length; i++) {
             	httpsampler.addEncodedArgument(args[i], values[i], "=");

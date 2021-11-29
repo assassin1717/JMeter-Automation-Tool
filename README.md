@@ -1,18 +1,24 @@
-# README #
+# JMeter Automation Tool
 
-<h2>-----------How to use:-----------</h2>
+[JMeter](https://jmeter.apache.org/) is an old non-functional testing tool and using this project you can generate a collection of tests automatically for JMeter.
 
-<h3>You need to have Java and Maven installed correctly with environment variables created.</h3>
-<p>Go to the project source folder and open a Powershell or CMD.</p>
-<p>Use this command to generate the .jar with dependencies: <b>mvn package</b></p>
-<p>It's done, import it to your project and use it as you want.</p>
+## How to use
 
-<br>
-<br>
-
-<h2>-----------Project Structure:-----------</h2>
-<h3>-----------JAVA-----------</h3>
-<p><b>Package jmethods</b></p>
-<p>JMeterMethods -> stores the JMeter methods to build your JMeter tests with code.</p>
+- You need to have Java and Maven installed correctly with environment variables created.
+- Go to the project source folder and open a Powershell or CMD.
+- Use this command to generate the .jar with dependencies: `mvn package`
+- It's done, import it to your project and use it as you want.
 
 
+## Tech
+
+- [Java](https://www.oracle.com/java/technologies/downloads/)
+- [JMeter](https://jmeter.apache.org/)
+- [Maven](https://maven.apache.org/)
+
+
+## License
+
+MIT
+
+**Open Source App :)**
